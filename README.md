@@ -1,4 +1,4 @@
-# Moby tracking SDK [![Build Status](https://travis-ci.org/O2MC/moby-tracking-sdk.svg?branch=master)](https://travis-ci.org/O2MC/moby-tracking-sdk)
+# Moby tracking SDK [![Build Status](https://travis-ci.org/O2MC/moby-tracking-sdk.svg?branch=master)](https://travis-ci.org/O2MC/moby-tracking-sdk) [ ![Download](https://api.bintray.com/packages/edwinvrooij/moby-tracking-sdk-test/io.o2mc.sdk/images/download.svg) ](https://bintray.com/edwinvrooij/moby-tracking-sdk-test/io.o2mc.sdk/_latestVersion)
 
 O2MC's mobile tracking SDK for collecting and measuring analytical events.
 

@@ -1,6 +1,20 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
+// start Bintray config
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+// end
+
+tasks.withType(Javadoc).all {
+  // Ignore because javadoc doesn't parse kotlin files correctly
+  excludes = ['**/*.kt'] // < ---- Exclude all kotlin files from javadoc file.
+}
+
+repositories {
+  mavenCentral()
+}
+
 android {
   compileSdkVersion rootProject.ext.compileSdkVersion
 
@@ -20,7 +34,8 @@ android {
   buildTypes {
     release {
       minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      useProguard false
+      //      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
     debug {
       debuggable true
@@ -37,10 +52,38 @@ dependencies {
   androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
   // Third party dependencies.
-  implementation 'com.google.code.gson:gson:2.8.5'
-  implementation 'com.squareup.okhttp3:okhttp:3.10.0'
-  compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+  api 'com.google.code.gson:gson:2.8.5'
+  api 'com.squareup.okhttp3:okhttp:3.10.0'
+  api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
-repositories {
-  mavenCentral()
+
+// start Bintray config
+ext {
+  bintrayRepo = "moby-tracking-sdk-test"
+  bintrayName = "io.o2mc.sdk"
+
+  publishedGroupId = 'io.o2mc.sdk'
+  libraryName = 'sdk'
+  artifact = 'sdk'
+
+  libraryDescription = 'Moby, the mobile dimml SDK for Android and iOS'
+
+  siteUrl = 'https://github.com/O2MC/moby-tracking-sdk'
+  gitUrl = 'https://github.com/O2MC/moby-tracking-sdk.git'
+
+  developerId = 'EdwinVanRooij'
+  developerName = 'Edwin van Rooij'
+  developerEmail = 'edwinvrooij@gmail.com'
+
+  libraryVersion = '0.0.7'
+
+  licenseName = 'MIT License'
+  licenseUrl = 'https://github.com/O2MC/moby-tracking-sdk/blob/master/LICENSE'
+  allLicenses = ['MIT License']
 }
+
+if (project.rootProject.file('local.properties').exists()) {
+  apply from: project.file('build-config.gradle')
+  apply from: project.file('upload-config.gradle')
+}
+// end
